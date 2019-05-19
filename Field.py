@@ -21,3 +21,6 @@ class Field:
 
     def setValue(self, newvalue):
         self.value = newvalue
+
+    def up(self):
+        self.value *= 2

@@ -10,39 +10,37 @@ class Board:
         self.fields = self.makeBoard(size)
 
     def __str__(self):
+        out = ""
         for i in range(self.size):
-
-            print(*("{:5s}".format(str(k.getValue())) for k in self.fields[i]))
-
-        return ""
-
-
+            for j in self.fields[i]:
+                out += "{:5s}".format(str(j.getValue()))
+            out += "\n"
+        return out
 
     def makeBoard(self, size):
-        board = []
-        for i in range(size):
-            rows = []
-            for j in range(size):
-                rows.append(Field(None))
-            board.append(rows)
+        # create matrix of empty initialized fields objects
+        board = [[Field(None) for i in range(size)] for j in range(size)]
 
-        # now I am making some random values on board
+        # make some random values on board
         addedRandom = 0
+        # fill the board in 1/8
         while addedRandom <= size**2/8:
-            if not board[random.randint(0,size-1)][random.randint(0,size-1)].isOccupied():
+            x = random.randint(0, size-1)
+            y = random.randint(0, size-1)
+            if not board[x][y].isOccupied():
                 if random.random() < 0.6:
-                    board[random.randint(0,size-1)][random.randint(0,size-1)].setValue(2)
+                    board[x][y].setValue(2)
                 else:
-                    board[random.randint(0,size-1)][random.randint(0,size-1)].setValue(4)
+                    board[x][y].setValue(4)
                 addedRandom+=1
         return board
 
-
-
+    # this one can be better
+    # TODO
     def moveSlice(self, slice, toLeft):
         # slice is a row or column from board
-        # toLeft == 1 means that I agregate values to the left
-        if toLeft == 0:
+        # toLeft == 1 means agregate values to the left
+        if not toLeft:
             slice.reverse()
         newslice = []
         current = None

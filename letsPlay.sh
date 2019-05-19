@@ -8,7 +8,7 @@ for i in $(seq 3 1 7)
 
   for j in $(seq 1 1 100)
    do 
-     ./Gra.py -n $i -r | grep "move" | tail -1 | awk '{print $3}' >> gra$i
-     #echo "gra numer " $i $a
+     Game.py -n $i -r | grep "move" | tail -1 | awk '{print $3}' >> game$i
+     #echo "game nr " $i $a
    done
  done
